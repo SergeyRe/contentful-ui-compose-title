@@ -1,46 +1,46 @@
-< !doctype html >
- < html lang = "en" >
-	 < head >
-	 < meta charset = "UTF-8" /  >
-	 < title > Sample  Extension <  / title >
-	 < link rel = "stylesheet" href = "https://unpkg.com/contentful-ui-extensions-sdk@3/dist/cf-extension.css" /  >
-	 < script src = "https://unpkg.com/contentful-ui-extensions-sdk@3" >  <  / script >
-	 <  / head >
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sample Extension</title>
+    <link rel = "stylesheet" href =
+    "https://unpkg.com/contentful-ui-extensions-sdk@3/dist/cf-extension.css"/>
+    <script src="https://unpkg.com/contentful-ui-extensions-sdk@3"></script>
+  </head>
 
-	 < body style = "margin: 0;" >
+  <body style="margin: 0;">
+    <button id="triggerBuild" class="cf-btn-primary">Generate name</button>
 
-	 < button id = "triggerBuild" class = "cf-btn-primary" > Генерировать name <  / button >
+    <script type="text/javascript">
+      var triggerBuildBtn = document.getElementById("triggerBuild");
+      triggerBuildBtn.addEventListener("click", function() {
+        window.contentfulExtension.init(function(extension) {
+          let v;
+          let g;
+          let ch;
+          var name = extension.entry.fields.name;
+          var geometryid =
+            extension.entry.fields.geometry._fieldLocales["en-US"]._value.sys
+              .id;
+          var voltageid =
+            extension.entry.fields.voltage._fieldLocales["en-US"]._value.sys.id;
+          var chemistryid =
+            extension.entry.fields.chemistry._fieldLocales["en-US"]._value.sys
+              .id;
 
-	 < script type = "text/javascript" >
-
-	var triggerBuildBtn = document.getElementById('triggerBuild');
-triggerBuildBtn.addEventListener('click', function () {
-
-	window.contentfulExtension.init(function (extension) {
-		let v;
-		let g;
-		let ch;
-		var name = extension.entry.fields.name
-			var geometryid = extension.entry.fields.geometry._fieldLocales['en-US']._value.sys.id
-			var voltageid = extension.entry.fields.voltage._fieldLocales['en-US']._value.sys.id
-			var chemistryid = extension.entry.fields.chemistry._fieldLocales['en-US']._value.sys.id
-
-			extension.space.getEntry(voltageid).then((voltage) => {
-				var v = voltage.fields.name['en-US'];
-				extension.space.getEntry(geometryid).then((geometry) => {
-					var g = geometry.fields.name['en-US'];
-					extension.space.getEntry(chemistryid).then((chemistry) => {
-						var ch = chemistry.fields.name['en-US'];
-						name._fieldLocales['en-US'].setValue(g + "--" + ch + "--" + v);
-					})
-				})
-
-			})
-			
-	}) //init
-
-}) //trigger
- <  / script >
-
- <  / body >
-<  / html >
+          extension.space.getEntry(voltageid).then(voltage => {
+            var v = voltage.fields.name["en-US"];
+            extension.space.getEntry(geometryid).then(geometry => {
+              var g = geometry.fields.name["en-US"];
+              extension.space.getEntry(chemistryid).then(chemistry => {
+                var ch = chemistry.fields.name["en-US"];
+                name._fieldLocales["en-US"].setValue(g + "--" + ch + "--" + v);
+              });
+            });
+          });
+          console.log(a);
+        }); //init
+      }); //trigger
+    </script>
+  </body>
+</html>
